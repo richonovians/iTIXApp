@@ -10,11 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 class MovieAdapter(
     private var movies: List<Movie>,
     private val onClick: (Movie) -> Unit,
-    private val onFavorite: (Movie) -> Unit
+    private val onFavorite: (Movie) -> Unit,
+    private var favoriteTitles: Set<String> = emptySet()
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     fun updateList(newList: List<Movie>) {
         movies = newList
+        notifyDataSetChanged()
+    }
+
+    fun updateFavorites(newFavorites: Set<String>) {
+        favoriteTitles = newFavorites
         notifyDataSetChanged()
     }
 
@@ -39,22 +45,26 @@ class MovieAdapter(
         fun bind(movie: Movie) {
             txtTitle.text = movie.title
 
-            // Ambil resource gambar dari nama string
             val context = itemView.context
             val resId = context.resources.getIdentifier(
                 movie.imageRes, "drawable", context.packageName
             )
             imgMovie.setImageResource(if (resId != 0) resId else android.R.color.darker_gray)
 
-            // Klik pada seluruh item
+            val isFavorite = favoriteTitles.contains(movie.title)
+            btnFavorite.setImageResource(
+                if (isFavorite) R.drawable.ic_star else R.drawable.ic_star_border
+            )
+
             itemView.setOnClickListener {
                 onClick(movie)
             }
 
-            // Klik pada ikon favorit
             btnFavorite.setOnClickListener {
                 onFavorite(movie)
-                btnFavorite.setImageResource(R.drawable.ic_star) // Ganti ikon favorit
+                // Tambahkan secara lokal agar langsung berubah (opsional)
+                favoriteTitles = favoriteTitles + movie.title
+                notifyItemChanged(adapterPosition)
             }
         }
     }

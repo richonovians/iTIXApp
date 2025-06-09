@@ -53,6 +53,14 @@ class MovieListActivity : AppCompatActivity() {
             finish()
         }
 
+        loadMoviesFromFirebase()
+
+        loadFavorites { favoriteTitles ->
+            nowPlayingAdapter.updateFavorites(favoriteTitles)
+            topMovieAdapter.updateFavorites(favoriteTitles)
+            comingSoonAdapter.updateFavorites(favoriteTitles)
+        }
+
 //        binding.btnUploadMovies.setOnClickListener {
 //            uploadMoviesToFirebase()
 //        }
@@ -147,5 +155,26 @@ class MovieListActivity : AppCompatActivity() {
                     }
                 }
         }
+    }
+
+    private fun loadFavorites(callback: (Set<String>) -> Unit) {
+        val favRef = FirebaseDatabase.getInstance("https://itixapp-45ca5-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getReference("favorites")
+            .child(userId)
+
+        favRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val favorites = mutableSetOf<String>()
+                for (child in snapshot.children) {
+                    val movie = child.getValue(Movie::class.java)
+                    movie?.title?.let { favorites.add(it) }
+                }
+                callback(favorites)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(emptySet()) // Default kosong jika gagal
+            }
+        })
     }
 }

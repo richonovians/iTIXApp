@@ -3,11 +3,11 @@ package com.android.itixapp
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.itixapp.Movie
 import com.android.itixapp.databinding.ItemFavouriteBinding
 
 class FavouriteAdapter(
-    private var movies: List<MovieDisplay>
+    private var movies: List<MovieDisplay>,
+    private val onDelete: (MovieDisplay) -> Unit
 ) : RecyclerView.Adapter<FavouriteAdapter.FavViewHolder>() {
 
     inner class FavViewHolder(private val binding: ItemFavouriteBinding) :
@@ -17,6 +17,11 @@ class FavouriteAdapter(
             binding.imgMovie.setImageResource(movie.imageResId)
             binding.tvTitle.text = movie.title
             binding.tvGenre.text = "${movie.genre} • ${movie.duration}"
+
+            // Handle tombol hapus
+            binding.btnDelete.setOnClickListener {
+                onDelete(movie)
+            }
         }
     }
 

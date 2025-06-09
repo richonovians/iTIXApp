@@ -48,7 +48,7 @@
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Fullname"
+                android:hint="Username"
                 android:inputType="textPersonName"
                 android:background="@color/white"
                 android:padding="16dp"

@@ -2,6 +2,8 @@ package com.android.itixapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -9,12 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.android.itixapp.R
 import com.android.itixapp.databinding.ActivityHomeBinding
-import com.android.itixapp.SliderAdapter
-import com.android.itixapp.FavouriteActivity
-import com.android.itixapp.MovieListActivity
-import com.android.itixapp.ProfileActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,16 +23,27 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var sliderAdapter: SliderAdapter
     private val sliderImages = listOf(
         R.drawable.posterlilo,
-        R.drawable.posterlilo,
-        R.drawable.posterlilo
+        R.drawable.dragon,
+        R.drawable.dino
     )
+
+    // === Auto Slide ===
+    private val sliderHandler = Handler(Looper.getMainLooper())
+    private var currentPage = 0
+    private val sliderRunnable = object : Runnable {
+        override fun run() {
+            if (currentPage >= sliderImages.size) currentPage = 0
+            binding.viewPager.setCurrentItem(currentPage++, true)
+            sliderHandler.postDelayed(this, 3000) // 3 detik
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ambil data user dari intent (dari LoginActivity / SignupActivity)
+        // Ambil data user dari intent
         userId = intent.getStringExtra("user_id") ?: ""
         username = intent.getStringExtra("username") ?: ""
         email = intent.getStringExtra("email") ?: ""
@@ -59,6 +67,7 @@ class HomeActivity : AppCompatActivity() {
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateIndicatorDots(position)
+                currentPage = position + 1 // Reset currentPage
             }
         })
     }
@@ -135,5 +144,16 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // === Start & Stop Auto Slide ===
+    override fun onResume() {
+        super.onResume()
+        sliderHandler.postDelayed(sliderRunnable, 3000)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sliderHandler.removeCallbacks(sliderRunnable)
     }
 }

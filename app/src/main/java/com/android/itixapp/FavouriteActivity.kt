@@ -39,12 +39,16 @@ class FavouriteActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        favoriteAdapter = FavouriteAdapter(moviesList)
+        favoriteAdapter = FavouriteAdapter(moviesList) { movieToDelete ->
+            deleteFavorite(movieToDelete)
+        }
+
         binding.rvFavorites.apply {
             layoutManager = LinearLayoutManager(this@FavouriteActivity)
             adapter = favoriteAdapter
         }
     }
+
 
     private fun setupListeners() {
         binding.btnBack.setOnClickListener {
@@ -84,4 +88,29 @@ class FavouriteActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun deleteFavorite(movie: MovieDisplay) {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+        val favRef = database.child("favorites").child(userId)
+
+        favRef.orderByChild("title").equalTo(movie.title)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (child in snapshot.children) {
+                        child.ref.removeValue()
+                    }
+
+                    // Hapus dari list lokal dan refresh RecyclerView
+                    moviesList.remove(movie)
+                    favoriteAdapter.updateList(moviesList)
+
+                    Toast.makeText(this@FavouriteActivity, "Favorite removed", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@FavouriteActivity, "Failed to delete", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
 }
