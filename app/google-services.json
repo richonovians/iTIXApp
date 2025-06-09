@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "162780319496",
+    "firebase_url": "https://itixapp-45ca5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "itixapp-45ca5",
+    "storage_bucket": "itixapp-45ca5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162780319496:android:47d694eaf5a1486f52a6bd",
+        "android_client_info": {
+          "package_name": "com.android.itixapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABJ8oR1MA1BIVU1QdnnKMF9m92DfsaLWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
