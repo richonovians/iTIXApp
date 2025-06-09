@@ -1,10 +1,13 @@
-package com.android.itixapp
+package com.android.itixapp.ui.activity
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.itixapp.ui.adapter.FavouriteAdapter
+import com.android.itixapp.model.Movie
+import com.android.itixapp.model.MovieDisplay
 import com.android.itixapp.databinding.ActivityFavouriteBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*

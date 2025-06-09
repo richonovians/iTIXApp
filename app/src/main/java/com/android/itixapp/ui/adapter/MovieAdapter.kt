@@ -1,4 +1,4 @@
-package com.android.itixapp
+package com.android.itixapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.itixapp.model.Movie
+import com.android.itixapp.R
 
 class MovieAdapter(
     private var movies: List<Movie>,

@@ -1,4 +1,4 @@
-package com.android.itixapp
+package com.android.itixapp.model
 
 data class Movie(
     val title: String = "",

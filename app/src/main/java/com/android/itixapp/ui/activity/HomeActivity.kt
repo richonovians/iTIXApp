@@ -1,4 +1,4 @@
-package com.android.itixapp
+package com.android.itixapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.android.itixapp.R
+import com.android.itixapp.ui.adapter.SliderAdapter
 import com.android.itixapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

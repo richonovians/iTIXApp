@@ -1,8 +1,9 @@
-package com.android.itixapp
+package com.android.itixapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.itixapp.model.MovieDisplay
 import com.android.itixapp.databinding.ItemFavouriteBinding
 
 class FavouriteAdapter(

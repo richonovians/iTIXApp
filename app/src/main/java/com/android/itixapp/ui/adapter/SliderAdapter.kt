@@ -1,4 +1,4 @@
-package com.android.itixapp
+package com.android.itixapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package com.android.itixapp
+package com.android.itixapp.ui.activity
 
 import kotlin.jvm.java
 

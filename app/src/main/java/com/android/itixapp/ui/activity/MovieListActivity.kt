@@ -1,12 +1,12 @@
-package com.android.itixapp
+package com.android.itixapp.ui.activity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.android.itixapp.Movie
+import com.android.itixapp.model.Movie
 import com.android.itixapp.databinding.ActivityMovieListBinding
-import com.android.itixapp.MovieAdapter
+import com.android.itixapp.ui.adapter.MovieAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlin.jvm.java
