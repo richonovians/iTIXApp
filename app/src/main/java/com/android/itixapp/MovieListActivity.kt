@@ -53,9 +53,9 @@ class MovieListActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnUploadMovies.setOnClickListener {
-            uploadMoviesToFirebase()
-        }
+//        binding.btnUploadMovies.setOnClickListener {
+//            uploadMoviesToFirebase()
+//        }
 
     }
 
