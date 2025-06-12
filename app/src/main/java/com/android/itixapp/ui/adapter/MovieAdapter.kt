@@ -64,7 +64,7 @@ class MovieAdapter(
 
             btnFavorite.setOnClickListener {
                 onFavorite(movie)
-                // Tambahkan secara lokal agar langsung berubah (opsional)
+                // Tambah secara lokal agar langsung berubah
                 favoriteTitles = favoriteTitles + movie.title
                 notifyItemChanged(adapterPosition)
             }

@@ -44,6 +44,12 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Validasi email
+            if (!email.endsWith("@gmail.com")) {
+                Toast.makeText(this, "Email must use @gmail.com domain", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
