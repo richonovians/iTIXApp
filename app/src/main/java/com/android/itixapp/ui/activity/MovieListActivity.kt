@@ -31,9 +31,9 @@ class MovieListActivity : AppCompatActivity() {
             .getReference("movies")
 
         // Inisialisasi adapter
-        nowPlayingAdapter = MovieAdapter(emptyList(), { /* no-op */ }, { addMovieToFavorites(it) })
-        topMovieAdapter = MovieAdapter(emptyList(), { /* no-op */ }, { addMovieToFavorites(it) })
-        comingSoonAdapter = MovieAdapter(emptyList(), { /* no-op */ }, { addMovieToFavorites(it) })
+        nowPlayingAdapter = MovieAdapter(emptyList(), { addMovieToFavorites(it) })
+        topMovieAdapter = MovieAdapter(emptyList(), { addMovieToFavorites(it) })
+        comingSoonAdapter = MovieAdapter(emptyList(), { addMovieToFavorites(it) })
 
         // Pasang adapter ke RecyclerView
         binding.rvNowPlaying.layoutManager = GridLayoutManager(this, 3)
@@ -53,8 +53,6 @@ class MovieListActivity : AppCompatActivity() {
             finish()
         }
 
-        loadMoviesFromFirebase()
-
         loadFavorites { favoriteTitles ->
             nowPlayingAdapter.updateFavorites(favoriteTitles)
             topMovieAdapter.updateFavorites(favoriteTitles)
@@ -64,7 +62,6 @@ class MovieListActivity : AppCompatActivity() {
 //        binding.btnUploadMovies.setOnClickListener {
 //            uploadMoviesToFirebase()
 //        }
-
     }
 
     private fun loadMoviesFromFirebase() {
@@ -101,7 +98,7 @@ class MovieListActivity : AppCompatActivity() {
             .getReference("favorites")
             .child(userId)
 
-        // Gunakan title sebagai ID unik
+        // Simpan data ke firebase
         favoriteRef.child(movie.title).setValue(movie)
             .addOnSuccessListener {
                 Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show()
@@ -173,7 +170,7 @@ class MovieListActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback(emptySet()) // Default kosong jika gagal
+                callback(emptySet())
             }
         })
     }

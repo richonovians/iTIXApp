@@ -11,7 +11,6 @@ import com.android.itixapp.R
 
 class MovieAdapter(
     private var movies: List<Movie>,
-    private val onClick: (Movie) -> Unit,
     private val onFavorite: (Movie) -> Unit,
     private var favoriteTitles: Set<String> = emptySet()
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -57,10 +56,6 @@ class MovieAdapter(
             btnFavorite.setImageResource(
                 if (isFavorite) R.drawable.ic_star else R.drawable.ic_star_border
             )
-
-            itemView.setOnClickListener {
-                onClick(movie)
-            }
 
             btnFavorite.setOnClickListener {
                 onFavorite(movie)

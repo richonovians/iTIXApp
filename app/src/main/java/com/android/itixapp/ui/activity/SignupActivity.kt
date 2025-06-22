@@ -60,6 +60,7 @@ class SignupActivity : AppCompatActivity() {
                                 "email" to email
                             )
 
+                            // Perintah menyimpan data ke realtime database
                             database.child("users").child(uid).setValue(userMap)
                                 .addOnCompleteListener { dbTask ->
                                     if (dbTask.isSuccessful) {
